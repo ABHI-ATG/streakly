@@ -1,19 +1,19 @@
-import { use, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './Login.css';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./Login.css";
 
 const Login = () => {
-  const [username, setUsername] = useState('');
+  const [username, setUsername] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if(!username) {
-      alert('Username cannot be empty');
+    if (!username) {
+      alert("Username cannot be empty");
       return;
     }
     if (username.trim()) {
-      navigate('/home', { state: { username } });
+      navigate("/home", { state: { username } });
     }
   };
 

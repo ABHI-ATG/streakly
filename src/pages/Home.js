@@ -11,7 +11,6 @@ const Home = () => {
   const [activity, setActivity] = useState("");
   const [activities, setActivities] = useState([]);
   const [statusToday, setStatusToday] = useState([]);
-  const [data, setData] = useState(null);
   const [forEachDate, setForEachDate] = useState({});
 
   useEffect(() => {
@@ -26,7 +25,6 @@ const Home = () => {
           name: username,
         });
 
-        setData(response.data.data);
 
         const allStatus = response.data.data.status || [];
         const today = new Date().toISOString().split("T")[0];

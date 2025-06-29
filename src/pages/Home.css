@@ -1,38 +1,85 @@
+/* Global Box Sizing for consistent layout */
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
 /* Base Container */
 .home-container {
   max-width: 100%;
   margin: auto;
   padding: 2rem 1rem;
+  /* Generous padding on larger screens */
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: #222;
   background-color: #fefefe;
   line-height: 1.6;
+  overflow-x: hidden;
+  /* Prevent horizontal scroll due to potential content overflow */
+  min-height: 100vh;
+  /* Ensure container takes full viewport height */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* Center content horizontally */
 }
 
 /* Headings */
 h1 {
   text-align: center;
-  font-size: 2.2rem;
-  margin-bottom: 1.2rem;
-  font-weight: 600;
+  font-size: 2.5rem;
+  /* Slightly larger for impact */
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  /* Bolder for primary heading */
+  color: #007acc;
+  /* Theme color */
+  word-break: break-word;
+  /* Prevent overflow of long usernames */
 }
 
 h2 {
-  font-size: 1.5rem;
-  margin: 2rem 0 1rem;
+  font-size: 1.7rem;
+  margin: 2.5rem 0 1.2rem;
+  /* More vertical spacing */
   text-align: center;
   color: #333;
+  font-weight: 600;
+  word-break: break-word;
+}
+
+h5 {
+  margin-top: auto;
+  /* Push footer to the bottom */
+  padding-top: 3rem;
+  /* Space above footer */
+  text-align: center;
+  color: #aaa;
+  font-weight: normal;
+  font-size: 0.85rem;
 }
 
 /* Section Containers */
 .activities-checklist,
 .activities-list {
-  max-width: 600px;
+  max-width: 700px;
+  /* Slightly wider max-width */
+  width: 100%;
+  /* Ensure it takes full width up to max-width */
   margin: 1.5rem auto;
   background: #fff;
-  padding: 1.2rem;
+  padding: 1.5rem;
+  /* More padding */
   border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  /* Stronger, softer shadow */
+  min-height: 100px;
+  /* Prevent collapse if empty */
 }
 
 /* List Styling */
@@ -43,210 +90,767 @@ ul {
 }
 
 li {
-  padding: 0.6rem 1rem;
+  padding: 0.8rem 1rem;
+  /* Increased padding */
   border-bottom: 1px solid #e0e0e0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 1rem;
-  transition: background-color 0.2s ease;
+  /* Space out content and button */
+  font-size: 1.1rem;
+  /* Slightly larger font */
+  transition: background-color 0.2s ease, transform 0.1s ease;
   border-radius: 8px;
-  min-height: 46px;
+  min-height: 50px;
+  /* Ensures consistent height */
+  flex-wrap: wrap;
+  /* Allow items to wrap on smaller screens */
+  gap: 0.75rem;
+  /* Space between elements when wrapping */
+}
+
+li:last-child {
+  border-bottom: none;
+  /* No border for the last item */
 }
 
 li:hover {
-  background-color: #f5f5f5;
+  background-color: #f8f8f8;
+  /* Lighter hover effect */
+  transform: translateY(-2px);
+  /* Slight lift on hover */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  /* Subtle shadow on hover */
 }
 
 li.completed {
   text-decoration: line-through;
   color: #999;
+  background-color: #f0f0f0;
+  /* Faint background for completed items */
 }
+
+li button.delete-btn {
+  background-color: #e74c3c;
+  /* Red for delete button */
+  padding: 0.3rem 0.8rem;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+  /* Prevent button from shrinking */
+}
+
+li button.delete-btn:hover {
+  background-color: #c0392b;
+}
+
 
 /* Checkbox */
 input[type="checkbox"] {
   margin-right: 0.75rem;
-  transform: scale(1.2);
+  transform: scale(1.3);
+  /* Slightly larger checkbox */
   cursor: pointer;
+  accent-color: #007acc;
+  /* Custom checkbox color */
+  flex-shrink: 0;
+  /* Prevent checkbox from shrinking */
 }
 
-/* Buttons */
+/* Buttons (General) */
 button {
-  padding: 0.4rem 0.9rem;
+  padding: 0.6rem 1.2rem;
   background-color: #007acc;
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 1rem;
   font-weight: 500;
   transition: background-color 0.3s ease, transform 0.1s ease;
+  white-space: nowrap;
+  /* Prevent button text from wrapping */
 }
 
 button:hover {
   background-color: #005fa3;
-  transform: scale(1.03);
+  transform: translateY(-1px);
+  /* Slight lift */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 button:active {
-  transform: scale(0.97);
+  transform: translateY(0);
+  /* Return to original position */
+  box-shadow: none;
 }
 
-/* Activity Input */
+/* Activity Input Section */
 .activity-input {
   margin: 2rem auto;
-  max-width: 600px;
+  max-width: 700px;
+  /* Match section container width */
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
+  /* Allow wrapping */
+  gap: 1rem;
+  /* More space between input and button */
   justify-content: center;
+  align-items: center;
+  /* Align vertically */
+  padding: 0 1rem;
+  /* Add some horizontal padding */
 }
 
 .activity-input input {
-  flex: 1 1 250px;
-  padding: 0.6rem;
-  font-size: 1rem;
+  flex: 1 1 300px;
+  /* Allows input to grow and shrink, min-width 300px */
+  padding: 0.8rem;
+  font-size: 1.1rem;
   border: 1px solid #ccc;
-  border-radius: 6px;
+  border-radius: 8px;
   background-color: #fff;
+  min-width: 0;
+  /* Allows shrinking in flex context */
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.activity-input input:focus {
+  outline: none;
+  border-color: #007acc;
+  box-shadow: 0 0 0 3px rgba(0, 122, 204, 0.25);
 }
 
 /* Date */
-.date {
+p.date {
   font-style: italic;
   color: #666;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   text-align: center;
+  font-size: 1rem;
 }
 
-/* Footer */
-h5 {
-  margin-top: 3rem;
+/* Empty State Messages */
+.activities-checklist p,
+.activities-list p {
   text-align: center;
-  color: #aaa;
-  font-weight: normal;
-  font-size: 0.85rem;
+  color: #777;
+  font-style: italic;
+  padding: 1rem 0;
 }
+
 
 /* --- Streak Chart --- */
 .streak-chart {
-  margin-top: 2rem;
-  padding: 1rem;
+  margin-top: 2.5rem;
+  padding: 1.5rem;
+  /* Increased padding */
   background-color: #fff;
   border-radius: 10px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-  max-width: 70%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  max-width: 95%;
+  /* Allow it to take more width, especially on larger screens */
+  width: 100%;
   margin-left: auto;
   margin-right: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
-  overflow: visible;
+  /* Removed overflow-x here, moved to .github-grid-container */
+  -webkit-overflow-scrolling: touch;
+  /* Smoother scrolling on iOS */
+  position: relative;
+  /* Needed for absolute positioning of tooltip */
+  padding-bottom: 0.5rem;
+  /* Adjust padding for labels */
 }
 
 .streak-chart h2 {
-  font-size: 1.25rem;
-  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
   text-align: center;
   color: #333;
 }
 
-/* Grid layout */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(53, 12px);
-  grid-auto-rows: 12px;
-  gap: 4px;
-  justify-content: start;
-  padding: 0.5rem 0;
-  overflow-x: visible;
+/* GitHub Grid Container - Holds day labels and the main grid for scrolling */
+.github-grid-container {
+  display: flex;
+  /* Flex container for labels + grid */
+  overflow-x: auto;
+  /* Allow horizontal scrolling if grid overflows */
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 0.5rem;
+  /* Space for scrollbar */
+  width: 100%;
+  /* Take full width of parent */
 }
 
+/* Day Labels (Sun, Mon, Tue, etc.) */
+.day-labels {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  /* Align labels to the top */
+  margin-right: 0.5rem;
+  /* Space between labels and grid */
+  font-size: 0.75rem;
+  /* Smaller font for labels */
+  color: #586069;
+  padding-top: 20px;
+  /* Offset to align with grid rows (grid-block height + gap) */
+  flex-shrink: 0;
+  /* Prevent labels from shrinking */
+  line-height: 14px;
+  /* Match grid-block height for alignment */
+  text-align: right;
+  /* Align text to the right within its container */
+  width: 30px;
+  /* Give a fixed width for consistent alignment */
+}
+
+.day-labels span {
+  height: 14px;
+  /* Match grid block height */
+  display: flex;
+  align-items: center;
+  /* Vertically center day text */
+  margin-bottom: 3px;
+  /* Match grid gap */
+}
+
+/* Hide specific day labels for GitHub-like condensed look */
+.day-labels span:nth-child(even) {
+  /* Mon, Wed, Fri */
+  visibility: hidden;
+  /* Hide these labels */
+}
+
+/* Re-show for Sunday, Tuesday, Thursday, Saturday if you want more density */
+/* You might need to adjust this depending on which days you want visible.
+   GitHub typically shows Mon, Wed, Fri. Let's aim for that.
+   Original CSS was hiding 2nd, 4th, 6th (Mon, Wed, Fri if Sun=1st).
+   To show Mon, Wed, Fri: Make Sun, Tue, Thu, Sat hidden.
+   Sun (1st child) -> hide if you only want Mon, Wed, Fri
+   Mon (2nd child) -> visible
+   Tue (3rd child) -> hide
+   Wed (4th child) -> visible
+   Thu (5th child) -> hide
+   Fri (6th child) -> visible
+   Sat (7th child) -> hide
+*/
+.day-labels span:nth-child(1),
+/* Sunday */
+.day-labels span:nth-child(3),
+/* Tuesday */
+.day-labels span:nth-child(5),
+/* Thursday */
+.day-labels span:nth-child(7) {
+  /* Saturday */
+  visibility: hidden;
+  height: 14px;
+  /* Maintain height even if hidden */
+}
+
+.day-labels span:nth-child(2),
+/* Monday */
+.day-labels span:nth-child(4),
+/* Wednesday */
+.day-labels span:nth-child(6) {
+  /* Friday */
+  visibility: visible;
+}
+
+
+/* Main Grid layout for streak chart */
+.grid {
+  display: grid;
+  /* Columns: We need 53 for a full year + 1 for padding/alignment */
+  /* This calculation (days in year / 7) is rough. Hardcoding 53 columns is safer for GitHub look. */
+  grid-template-columns: repeat(53, 17px);
+  /* 14px block width + 3px gap */
+  grid-template-rows: repeat(7, 14px);
+  /* 7 days of week, 14px height per day */
+  gap: 3px;
+  /* Gap between individual blocks */
+  justify-content: start;
+  /* Align blocks to the start of the grid container */
+  padding: 0;
+  /* Remove vertical padding, handled by grid-block margin/padding */
+  min-width: max-content;
+  /* Ensure grid always takes its content width for scrolling */
+  flex-shrink: 0;
+  /* Prevents grid from shrinking in flex container */
+}
+
+/* Adjust grid-block dimensions */
 .grid-block {
   position: relative;
-  width: 12px;
-  height: 12px;
+  /* For tooltip positioning */
+  width: 14px;
+  /* Actual block size */
+  height: 14px;
+  /* Actual block size */
   border-radius: 2px;
+  /* Slight rounding */
   transition: background-color 0.3s ease;
   z-index: 1;
+  /* Ensure blocks are above default content but below tooltips */
+  border: 1px solid rgba(27, 31, 35, 0.04);
+  /* Subtle border for definition */
 }
+
+/* GitHub-like Streak Chart Colors */
+/* Default (no activity) */
+.grid-block[style*="rgb(240, 240, 240)"],
+/* Default from your JS if ratio is 0 */
+.grid-block.level-0 {
+  /* Explicit level 0 */
+  background-color: #ebedf0;
+}
+
+/* Level 1: Low activity (e.g., 1-25%) */
+.grid-block.level-1 {
+  background-color: #9be9a8;
+}
+
+/* Level 2: Medium activity (e.g., 26-50%) */
+.grid-block.level-2 {
+  background-color: #40c463;
+}
+
+/* Level 3: High activity (e.g., 51-75%) */
+.grid-block.level-3 {
+  background-color: #30a14e;
+}
+
+/* Level 4: Very high activity (e.g., 76-100%) */
+.grid-block.level-4 {
+  background-color: #216e39;
+}
+
 
 /* Show pointer on hover */
 .grid-block:hover {
   cursor: pointer;
   z-index: 10;
-  /* bring block to front so tooltip is visible */
+  /* Bring hovered block to front */
 }
+
+/* Month Labels */
+.month-labels {
+  display: flex;
+  justify-content: flex-start;
+  /* Align month labels to start */
+  width: 100%;
+  /* Take full width of streak-chart */
+  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
+  color: #586069;
+  padding-left: calc(30px + 3px);
+  /* Offset to align with first grid column (day label width + its margin) */
+  position: relative;
+  /* For positioning month texts */
+  z-index: 2;
+  /* Ensure labels are above grid */
+  overflow-x: hidden;
+  /* Hide overflow in month labels */
+}
+
+.month-labels span {
+  min-width: 30px;
+  /* Give a minimum width to each month label */
+  text-align: left;
+  white-space: nowrap;
+  /* Prevent month names from wrapping */
+  position: absolute;
+  /* Position absolutely within the container */
+  transform: translateX(-50%);
+  /* Center the text relative to its starting point */
+  top: 0;
+  /* Align to the top of the month-labels container */
+}
+
 
 /* Tooltip box */
 .tooltip {
   display: none;
   position: absolute;
-  /* show above instead of below */
+  /* Positioning relative to the grid-block */
+  bottom: 100%;
+  /* Position above the block */
   left: 50%;
-  transform: translateX(-50%);
-  min-width: 160px;
-  background-color: #fff;
-  color: #222;
-  border: 1px solid #ccc;
+  transform: translateX(-50%) translateY(-5px);
+  /* Center and slight offset from block */
+  min-width: 180px;
+  max-width: 280px;
+  /* Allow wider tooltips for activity lists */
+  background-color: #333;
+  /* Darker background for contrast */
+  color: #fff;
+  /* White text */
+  border: 1px solid #555;
   border-radius: 8px;
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 0.6rem;
-  font-size: 0.75rem;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+  /* More prominent shadow */
+  padding: 0.75rem 1rem;
+  font-size: 0.85rem;
   line-height: 1.4;
-  white-space: nowrap;
+  white-space: normal;
   z-index: 999;
+  /* Ensure tooltip is on top */
+  pointer-events: none;
+  /* Allows clicks to pass through to underlying elements if needed */
+  text-align: left;
 }
 
-/* Tooltip arrow pointing down (since it's above the block) */
+.tooltip strong {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  color: #add8e6;
+  /* Light blue for date */
+}
+
+.tooltip ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.tooltip ul li {
+  padding: 0.2rem 0;
+  border-bottom: none;
+  /* No borders in tooltip list */
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: unset;
+  /* Reset min-height for tooltip list items */
+  color: #fff;
+  /* Ensure text is white */
+}
+
+/* Tooltip arrow */
 .tooltip::after {
   content: "";
   position: absolute;
   top: 100%;
+  /* Position arrow at bottom of tooltip */
   left: 50%;
   transform: translateX(-50%);
-  border-width: 6px;
+  border-width: 8px;
+  /* Larger arrow */
   border-style: solid;
-  border-color: #ccc transparent transparent transparent;
+  border-color: #333 transparent transparent transparent;
+  /* Arrow pointing down */
 }
 
-/* Show on hover */
+/* Show tooltip on hover */
 .grid-block:hover .tooltip {
   display: block;
 }
 
-.grid-block:hover {
-  background-color: #b0d4f1;
-  cursor: pointer;
-}
 
-/* Responsive */
-@media (max-width: 600px) {
+/* --- Responsive Tweaks --- */
+
+/* Medium screens (e.g., tablets, small laptops) */
+@media (max-width: 992px) {
+  .home-container {
+    padding: 1.5rem 1rem;
+  }
+
   h1 {
-    font-size: 1.75rem;
+    font-size: 2.2rem;
   }
 
   h2 {
-    font-size: 1.3rem;
+    font-size: 1.5rem;
+  }
+
+  .activities-checklist,
+  .activities-list,
+  .activity-input {
+    max-width: 650px;
+  }
+
+  .streak-chart {
+    padding: 1.2rem;
+  }
+
+  .day-labels {
+    margin-right: 0.3rem;
+    font-size: 0.7rem;
+    padding-top: 18px;
+    /* Adjust offset (12px block + 2px gap) */
+    line-height: 12px;
+    width: 25px;
+    /* Slightly smaller width */
+  }
+
+  .day-labels span {
+    height: 12px;
+    /* Match grid-block height */
+    margin-bottom: 2px;
+    /* Match grid gap */
+  }
+
+  .grid {
+    grid-template-columns: repeat(53, 14px);
+    /* Smaller week columns (12px block + 2px gap) */
+    grid-template-rows: repeat(7, 12px);
+    /* Smaller day rows */
+    gap: 2px;
+  }
+
+  .grid-block {
+    width: 12px;
+    height: 12px;
+  }
+
+  .month-labels {
+    font-size: 0.75rem;
+    padding-left: calc(25px + 2px);
+    /* Adjust offset (day label width + its margin) */
+  }
+
+  .month-labels span {
+    min-width: 25px;
+    /* Smaller min-width for month labels */
+  }
+
+  li {
+    font-size: 1rem;
+    padding: 0.7rem 0.8rem;
+  }
+
+  .activity-input input {
+    flex: 1 1 250px;
+    font-size: 1rem;
+    padding: 0.7rem;
+  }
+
+  button {
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+  }
+
+  .tooltip {
+    font-size: 0.8rem;
+    padding: 0.6rem 0.8rem;
+    min-width: 160px;
+    max-width: 250px;
+  }
+}
+
+/* Small screens (e.g., large phones) */
+@media (max-width: 768px) {
+  .home-container {
+    padding: 1.2rem 0.8rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-size: 1.4rem;
+    margin: 2rem 0 1rem;
+  }
+
+  .activities-checklist,
+  .activities-list,
+  .activity-input {
+    padding: 1rem;
+    margin: 1rem auto;
+  }
+
+  li {
+    flex-direction: column;
+    /* Stack items vertically */
+    align-items: flex-start;
+    /* Align stacked items to the left */
+    gap: 0.5rem;
+    padding: 0.6rem 0.8rem;
+  }
+
+  li input[type="checkbox"] {
+    margin-right: 0;
+    margin-bottom: 0.2rem;
+    /* Space below checkbox when stacked */
+  }
+
+  li button.delete-btn {
+    width: 100%;
+    /* Make delete button full width when stacked */
+    margin-top: 0.5rem;
   }
 
   .activity-input {
     flex-direction: column;
+    /* Stack input and button */
     align-items: stretch;
+    /* Stretch to full width */
+    gap: 0.8rem;
   }
 
-  button {
+  .activity-input input {
     width: 100%;
+    /* Ensure input takes full width */
+    flex: none;
+    /* Remove flex sizing to rely on width */
+  }
+
+  .activity-input button {
+    width: 100%;
+    /* Ensure button takes full width */
+  }
+
+  .streak-chart {
+    padding: 1rem 0.5rem;
+    /* Less padding, especially horizontal */
+  }
+
+  .day-labels {
+    font-size: 0.65rem;
+    padding-top: 15px;
+    /* Adjust offset (10px block + 1px gap) */
+    line-height: 10px;
+    width: 20px;
+    /* Even smaller width */
+  }
+
+  .day-labels span {
+    height: 10px;
+    margin-bottom: 1px;
   }
 
   .grid {
-    grid-template-columns: repeat(53, 10px);
-    grid-auto-rows: 10px;
-    gap: 3px;
+    grid-template-columns: repeat(53, 12px);
+    /* 10px block + 2px gap */
+    grid-template-rows: repeat(7, 10px);
+    gap: 1px;
   }
 
   .grid-block {
     width: 10px;
     height: 10px;
+  }
+
+  .month-labels {
+    font-size: 0.7rem;
+    padding-left: calc(20px + 1px);
+    /* Adjust offset (day label width + its margin) */
+  }
+
+  .month-labels span {
+    min-width: 20px;
+    /* Smaller min-width for month labels */
+  }
+
+  .tooltip {
+    font-size: 0.75rem;
+    padding: 0.5rem 0.7rem;
+    min-width: 140px;
+    max-width: 200px;
+  }
+
+  .tooltip ul li {
+    font-size: 0.7rem;
+  }
+}
+
+/* Extra small screens (e.g., old phones, very narrow viewports) */
+@media (max-width: 480px) {
+  .home-container {
+    padding: 1rem 0.5rem;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+    /* Even smaller h1 */
+  }
+
+  h2 {
+    font-size: 1.1rem;
+    /* Even smaller h2 */
+  }
+
+  .activities-checklist,
+  .activities-list,
+  .activity-input {
+    padding: 0.8rem;
+    margin: 0.8rem auto;
+  }
+
+  li {
+    font-size: 0.9rem;
+    padding: 0.5rem 0.6rem;
+  }
+
+  .activity-input input {
+    font-size: 0.9rem;
+    padding: 0.6rem;
+  }
+
+  button {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .streak-chart {
+    padding: 0.8rem 0.3rem;
+  }
+
+  .day-labels {
+    font-size: 0.6rem;
+    padding-top: 12px;
+    /* Adjust offset (8px block + 1px gap) */
+    line-height: 8px;
+    width: 18px;
+    /* Even smaller width */
+  }
+
+  .day-labels span {
+    height: 8px;
+    margin-bottom: 1px;
+  }
+
+  /* Hide ALL day labels on very small screens for maximum compactness if needed */
+  .day-labels span {
+    display: none;
+  }
+
+  /* If you hide all labels, adjust padding-left for month-labels */
+  .month-labels {
+    padding-left: 0;
+    /* No day labels, so no offset needed */
+    justify-content: space-around;
+    /* Distribute months more evenly */
+  }
+
+
+  .grid {
+    grid-template-columns: repeat(53, 10px);
+    /* 8px block + 2px gap */
+    grid-template-rows: repeat(7, 8px);
+    gap: 1px;
+  }
+
+  .grid-block {
+    width: 8px;
+    height: 8px;
+  }
+
+  .tooltip {
+    font-size: 0.65rem;
+    padding: 0.4rem 0.6rem;
+    min-width: 120px;
+    max-width: 180px;
+  }
+
+  .tooltip ul li {
+    font-size: 0.6rem;
   }
 }

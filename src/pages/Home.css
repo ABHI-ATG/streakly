@@ -1,0 +1,252 @@
+/* Base Container */
+.home-container {
+  max-width: 100%;
+  margin: auto;
+  padding: 2rem 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #222;
+  background-color: #fefefe;
+  line-height: 1.6;
+}
+
+/* Headings */
+h1 {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 1.2rem;
+  font-weight: 600;
+}
+
+h2 {
+  font-size: 1.5rem;
+  margin: 2rem 0 1rem;
+  text-align: center;
+  color: #333;
+}
+
+/* Section Containers */
+.activities-checklist,
+.activities-list {
+  max-width: 600px;
+  margin: 1.5rem auto;
+  background: #fff;
+  padding: 1.2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.06);
+}
+
+/* List Styling */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1rem;
+  transition: background-color 0.2s ease;
+  border-radius: 8px;
+  min-height: 46px;
+}
+
+li:hover {
+  background-color: #f5f5f5;
+}
+
+li.completed {
+  text-decoration: line-through;
+  color: #999;
+}
+
+/* Checkbox */
+input[type="checkbox"] {
+  margin-right: 0.75rem;
+  transform: scale(1.2);
+  cursor: pointer;
+}
+
+/* Buttons */
+button {
+  padding: 0.4rem 0.9rem;
+  background-color: #007acc;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+button:hover {
+  background-color: #005fa3;
+  transform: scale(1.03);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* Activity Input */
+.activity-input {
+  margin: 2rem auto;
+  max-width: 600px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+}
+
+.activity-input input {
+  flex: 1 1 250px;
+  padding: 0.6rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+}
+
+/* Date */
+.date {
+  font-style: italic;
+  color: #666;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Footer */
+h5 {
+  margin-top: 3rem;
+  text-align: center;
+  color: #aaa;
+  font-weight: normal;
+  font-size: 0.85rem;
+}
+
+/* --- Streak Chart --- */
+.streak-chart {
+  margin-top: 2rem;
+  padding: 1rem;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  max-width: 70%;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: visible;
+}
+
+.streak-chart h2 {
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: #333;
+}
+
+/* Grid layout */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(53, 12px);
+  grid-auto-rows: 12px;
+  gap: 4px;
+  justify-content: start;
+  padding: 0.5rem 0;
+  overflow-x: visible;
+}
+
+.grid-block {
+  position: relative;
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
+  transition: background-color 0.3s ease;
+  z-index: 1;
+}
+
+/* Show pointer on hover */
+.grid-block:hover {
+  cursor: pointer;
+  z-index: 10;
+  /* bring block to front so tooltip is visible */
+}
+
+/* Tooltip box */
+.tooltip {
+  display: none;
+  position: absolute;
+  /* show above instead of below */
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 160px;
+  background-color: #fff;
+  color: #222;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 0.6rem;
+  font-size: 0.75rem;
+  line-height: 1.4;
+  white-space: nowrap;
+  z-index: 999;
+}
+
+/* Tooltip arrow pointing down (since it's above the block) */
+.tooltip::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: #ccc transparent transparent transparent;
+}
+
+/* Show on hover */
+.grid-block:hover .tooltip {
+  display: block;
+}
+
+.grid-block:hover {
+  background-color: #b0d4f1;
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  h1 {
+    font-size: 1.75rem;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+  }
+
+  .activity-input {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  .grid {
+    grid-template-columns: repeat(53, 10px);
+    grid-auto-rows: 10px;
+    gap: 3px;
+  }
+
+  .grid-block {
+    width: 10px;
+    height: 10px;
+  }
+}

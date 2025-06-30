@@ -551,6 +551,48 @@ p.date {
   display: block;
 }
 
+/* --- Loading State --- */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  /* full viewport height */
+  background-color: #f5f5f5;
+  /* light background */
+}
+
+.spinner {
+  border: 6px solid #f3f3f3;
+  /* Light grey */
+  border-top: 6px solid #3498db;
+  /* Blue */
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+  margin-bottom: 12px;
+}
+
+.loading-text {
+  font-size: 18px;
+  color: #555;
+  font-family: Arial, sans-serif;
+}
+
+/* Animation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
 
 /* --- Responsive Tweaks --- */
 

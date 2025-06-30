@@ -12,6 +12,7 @@ const Home = () => {
   const [activities, setActivities] = useState([]);
   const [statusToday, setStatusToday] = useState([]);
   const [forEachDate, setForEachDate] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -20,11 +21,11 @@ const Home = () => {
         return;
       }
 
+      setLoading(true); // Start loading
       try {
         const response = await axios.post(`${API_BASE_URL}/api/users/create`, {
           name: username,
         });
-
 
         const allStatus = response.data.data.status || [];
         const today = new Date().toISOString().split("T")[0];
@@ -63,6 +64,8 @@ const Home = () => {
           "Error creating user:",
           err.response?.data || err.message
         );
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -170,95 +173,104 @@ const Home = () => {
   const yearDays = generateYearDays();
 
   return (
-    <div className="home-container">
-      <h1>Welcome, {username}!</h1>
-
-      <div className="streak-chart">
-        <h2>Yearly Streak</h2>
-        <div className="grid">
-          {yearDays.map((date, index) => (
-            <div
-              key={index}
-              className="grid-block"
-              style={{
-                backgroundColor:
-                  forEachDate[date] && forEachDate[date].done
-                    ? `rgba(0, 128, 0, ${
-                        forEachDate[date].done / forEachDate[date].length
-                      })`
-                    : "rgb(240, 240, 240)",
-              }}
-              title={date}
-            >
-              {forEachDate[date] && (
-                <div className="tooltip">
-                  <strong>{date}</strong>
-                  <ul>
-                    {forEachDate[date].status.map((act, i) => (
-                      <li key={i}>
-                        {act.completed ? "✅" : "❌"} {act.name}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}
-            </div>
-          ))}
+    <>
+      {loading ? (
+        <div className="loading-container">
+          <div className="spinner"></div>
+          <div className="loading-text">Loading...</div>
         </div>
-      </div>
+      ) : (
+        <div className="home-container">
+          <h1>Welcome, {username}!</h1>
 
-      <div className="activities-checklist">
-        <h2>Activity Checklist:</h2>
-        <p className="date">{today}</p>
-        {statusToday.length === 0 ? (
-          <p>No activities to track.</p>
-        ) : (
-          <ul>
-            {console.log("Status Today:", statusToday)}
-            {statusToday.map((item, index) => (
-              <li key={index} className={item.completed ? "completed" : ""}>
-                <input
-                  type="checkbox"
-                  checked={item.completed}
-                  onChange={() => toggleCompleted(item.name)}
-                />
-                {item.name}
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+          <div className="streak-chart">
+            <h2>Yearly Streak</h2>
+            <div className="grid">
+              {yearDays.map((date, index) => (
+                <div
+                  key={index}
+                  className="grid-block"
+                  style={{
+                    backgroundColor:
+                      forEachDate[date] && forEachDate[date].done
+                        ? `rgba(0, 128, 0, ${
+                            forEachDate[date].done / forEachDate[date].length
+                          })`
+                        : "rgb(240, 240, 240)",
+                  }}
+                  title={date}
+                >
+                  {forEachDate[date] && (
+                    <div className="tooltip">
+                      <strong>{date}</strong>
+                      <ul>
+                        {forEachDate[date].status.map((act, i) => (
+                          <li key={i}>
+                            {act.completed ? "✅" : "❌"} {act.name}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
 
-      <div className="activities-list">
-        <h2>Your Activities:</h2>
-        {activities.length === 0 ? (
-          <p>No activities added yet.</p>
-        ) : (
-          <ul>
-            {activities.map((item, index) => (
-              <li key={index}>
-                {item}
-                <button onClick={() => handleDeleteActivity(index)}>
-                  Delete
-                </button>
-              </li>
-            ))}
-          </ul>
-        )}
-      </div>
+          <div className="activities-checklist">
+            <h2>Activity Checklist:</h2>
+            <p className="date">{today}</p>
+            {statusToday.length === 0 ? (
+              <p>No activities to track.</p>
+            ) : (
+              <ul>
+                {console.log("Status Today:", statusToday)}
+                {statusToday.map((item, index) => (
+                  <li key={index} className={item.completed ? "completed" : ""}>
+                    <input
+                      type="checkbox"
+                      checked={item.completed}
+                      onChange={() => toggleCompleted(item.name)}
+                    />
+                    {item.name}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
 
-      <div className="activity-input">
-        <input
-          type="text"
-          placeholder="Enter an activity"
-          value={activity}
-          onChange={(e) => setActivity(e.target.value)}
-        />
-        <button onClick={handleAddActivity}>Add Activity</button>
-      </div>
+          <div className="activities-list">
+            <h2>Your Activities:</h2>
+            {activities.length === 0 ? (
+              <p>No activities added yet.</p>
+            ) : (
+              <ul>
+                {activities.map((item, index) => (
+                  <li key={index}>
+                    {item}
+                    <button onClick={() => handleDeleteActivity(index)}>
+                      Delete
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
 
-      <h5>© Abhi Singhal</h5>
-    </div>
+          <div className="activity-input">
+            <input
+              type="text"
+              placeholder="Enter an activity"
+              value={activity}
+              onChange={(e) => setActivity(e.target.value)}
+            />
+            <button onClick={handleAddActivity}>Add Activity</button>
+          </div>
+
+          <h5>© Abhi Singhal</h5>
+        </div>
+      )}
+    </>
   );
 };
 

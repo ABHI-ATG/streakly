@@ -160,13 +160,11 @@ const Home = () => {
   const generateYearDays = () => {
     const days = [];
     const year = new Date().getFullYear();
-    const start = new Date(year, 0, 1);
-    const end = new Date(year + 1, 0, 1);
-
+    const start = new Date(year, 0, 2);
+    const end = new Date(year + 1, 0, 2);
     for (let d = new Date(start); d < end; d.setDate(d.getDate() + 1)) {
       days.push(new Date(d).toISOString().split("T")[0]);
     }
-
     return days;
   };
 
@@ -200,18 +198,19 @@ const Home = () => {
                   }}
                   title={date}
                 >
-                  {forEachDate[date] && (
+                  {
                     <div className="tooltip">
                       <strong>{date}</strong>
                       <ul>
-                        {forEachDate[date].status.map((act, i) => (
-                          <li key={i}>
-                            {act.completed ? "✅" : "❌"} {act.name}
-                          </li>
-                        ))}
+                        {forEachDate[date] &&
+                          forEachDate[date].status.map((act, i) => (
+                            <li key={i}>
+                              {act.completed ? "✅" : "❌"} {act.name}
+                            </li>
+                          ))}
                       </ul>
                     </div>
-                  )}
+                  }
                 </div>
               ))}
             </div>

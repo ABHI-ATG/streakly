@@ -364,11 +364,13 @@ p.date {
 /* Main Grid layout for streak chart */
 .grid {
   display: grid;
+  grid-auto-flow: column;       /* fill vertically first */
+  grid-auto-columns: min-content;
+  grid-template-rows: repeat(7, auto);
   /* Columns: We need 53 for a full year + 1 for padding/alignment */
   /* This calculation (days in year / 7) is rough. Hardcoding 53 columns is safer for GitHub look. */
-  grid-template-columns: repeat(53, 17px);
+  /* grid-template-columns: repeat(53, 17px); */
   /* 14px block width + 3px gap */
-  grid-template-rows: repeat(7, 14px);
   /* 7 days of week, 14px height per day */
   gap: 3px;
   /* Gap between individual blocks */
